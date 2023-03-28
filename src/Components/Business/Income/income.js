@@ -34,32 +34,35 @@ const Income = props => {
             income: ''
         })
     }
-    let incomeList = [];
-    console.log(incomeList);
-    if (props.businessIncome.length>0) {
-        for (let i=0;i<props.businessIncome.length;i++)
-            incomeList.concat(<IncomeList income={props.businessIncome[i]}/>);
-    }
+    const incomeList = props.businessIncome.map(income=>{
+        return (
+            <IncomeList income={income} key={Math.random()}/>
+        );
+    });
     return (
-        <View style={styles.inputView}>
-            <TextInput 
-                style={styles.input} 
-                placeholder='Add Income Source'
-                value={businessIncome.source}
-                onChangeText={value=>handleIncomeInput(value,'source')}
-            />
-            <TextInput 
-                style={styles.input} 
-                placeholder='Add Income'
-                value={businessIncome.income}
-                onChangeText={value=>handleIncomeInput(value,'income')}
-            />
-            <TouchableOpacity style={styles.btnContainer}
+        <View>
+            <View style={styles.inputView}>
+                <TextInput 
+                    style={styles.input} 
+                    placeholder='Income Source'
+                    value={businessIncome.source}
+                    onChangeText={value=>handleIncomeInput(value,'source')}
+                />
+                <TextInput 
+                    style={styles.input} 
+                    placeholder='Income'
+                    value={businessIncome.income}
+                    onChangeText={value=>handleIncomeInput(value,'income')}
+                />
+                <TouchableOpacity style={styles.btnContainer}
                     onPress = {()=>handleIncome()}
-            >
-                <Text style={styles.btnStyle}>Add</Text>
-            </TouchableOpacity>
-            {incomeList}
+                >
+                    <Text style={styles.btnStyle}>Add</Text>
+                </TouchableOpacity>
+            </View>
+            <View>
+                {incomeList}
+            </View>
         </View>
     );
 }

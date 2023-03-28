@@ -21,6 +21,21 @@ export const rootReducer = (state=initState,action) => {
                 ...state,
                 businessIncome: state.businessIncome.concat(action.payload)
             }
+        case actionTypes.ADD_BUSINESS_EXPENSE:
+            return {
+                ...state,
+                businessExpense: state.businessExpense.concat(action.payload)
+            }
+        case actionTypes.ADD_JOB_INCOME:
+            return {
+                ...state,
+                jobIncome: state.jobIncome.concat(action.payload)
+            }
+        case actionTypes.ADD_JOB_EXPENSE:
+            return {
+                ...state,
+                jobExpense: state.jobExpense.concat(action.payload)
+            }
         default:
             return state;
     }

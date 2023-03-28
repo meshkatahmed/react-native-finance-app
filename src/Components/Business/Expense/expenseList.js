@@ -1,10 +1,10 @@
 import {StyleSheet,View,Text} from 'react-native';
 
-const IncomeList = props => {
+const ExpenseList = props => {
     return (
         <View style={styles.listView}>
-            <Text>{props.income.source}</Text>
-            <Text>{props.income.income} Tk.</Text>
+            <Text>{props.expense.source}</Text>
+            <Text>{props.expense.expense} Tk.</Text>
         </View>
     );
 }
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default IncomeList;
+export default ExpenseList;

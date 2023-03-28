@@ -45,3 +45,21 @@ export const addBusinessIncome = businessIncome => {
         payload: businessIncome
     }
 }
+export const addBusinessExpense = businessExpense => {
+    return {
+        type: actionTypes.ADD_BUSINESS_EXPENSE,
+        payload: businessExpense
+    }
+}
+export const addJobIncome = jobIncome => {
+    return {
+        type: actionTypes.ADD_JOB_INCOME,
+        payload: jobIncome
+    }
+}
+export const addJobExpense = jobExpense => {
+    return {
+        type: actionTypes.ADD_JOB_EXPENSE,
+        payload: jobExpense
+    }
+}
