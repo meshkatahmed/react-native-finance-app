@@ -39,27 +39,55 @@ export const tryAuth = (email,password,mode) => {
                 }
             )
 }
-export const addBusinessIncome = businessIncome => {
-    return {
-        type: actionTypes.ADD_BUSINESS_INCOME,
-        payload: businessIncome
-    }
+export const addBusinessIncome = businessIncome => dispatch => {
+    fetch('https://react-native-finance-app-default-rtdb.firebaseio.com/BusinessIncome.json',{
+        method: 'POST',
+        body: JSON.stringify(businessIncome)
+    }).catch(error=>console.log(error))
+    .then(response=>response.json())
+    .then(data=>console.log(data));
+
+    // return {
+    //     type: actionTypes.ADD_BUSINESS_INCOME,
+    //     payload: businessIncome
+    // }
 }
-export const addBusinessExpense = businessExpense => {
-    return {
-        type: actionTypes.ADD_BUSINESS_EXPENSE,
-        payload: businessExpense
-    }
+export const addBusinessExpense = businessExpense => dispatch => {
+    fetch('https://react-native-finance-app-default-rtdb.firebaseio.com/BusinessExpense.json',{
+        method: 'POST',
+        body: JSON.stringify(businessExpense)
+    }).catch(error=>console.log(error))
+    .then(response=>response.json())
+    .then(data=>console.log(data));
+
+    // return {
+    //     type: actionTypes.ADD_BUSINESS_EXPENSE,
+    //     payload: businessExpense
+    // }
 }
-export const addJobIncome = jobIncome => {
-    return {
-        type: actionTypes.ADD_JOB_INCOME,
-        payload: jobIncome
-    }
+export const addJobIncome = jobIncome => dispatch => {
+    fetch('https://react-native-finance-app-default-rtdb.firebaseio.com/JobIncome.json',{
+        method: 'POST',
+        body: JSON.stringify(jobIncome)
+    }).catch(error=>console.log(error))
+    .then(response=>response.json())
+    .then(data=>console.log(data));
+    
+    // return {
+    //     type: actionTypes.ADD_JOB_INCOME,
+    //     payload: jobIncome
+    // }
 }
-export const addJobExpense = jobExpense => {
-    return {
-        type: actionTypes.ADD_JOB_EXPENSE,
-        payload: jobExpense
-    }
+export const addJobExpense = jobExpense => dispatch => {
+    fetch('https://react-native-finance-app-default-rtdb.firebaseio.com/JobExpense.json',{
+        method: 'POST',
+        body: JSON.stringify(jobExpense)
+    }).catch(error=>console.log(error))
+    .then(response=>response.json())
+    .then(data=>console.log(data));
+
+    // return {
+    //     type: actionTypes.ADD_JOB_EXPENSE,
+    //     payload: jobExpense
+    // }
 }
