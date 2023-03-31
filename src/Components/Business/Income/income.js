@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {StyleSheet,View,Text,TextInput,TouchableOpacity} from 'react-native';
 import * as actionCreators from '../../../Redux/./actionCreators';
 import {connect} from 'react-redux';
@@ -6,14 +6,17 @@ import IncomeList from './incomeList';
 
 const mapStateToProps = state => {
     return {
-        businessIncome: state.businessIncome
+        businessIncome: state.businessIncome,
+        token: state.token,
+        userId: state.userId
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        addBusinessIncome: businessIncome => 
+        addBusinessIncome: (businessIncome,token) => 
                             dispatch(actionCreators
-                                .addBusinessIncome(businessIncome))
+                            .addBusinessIncome(businessIncome,token)),
+        getBusinessIncome: token => dispatch(actionCreators.getBusinessIncome(token))
     }
 }
 const Income = props => {
@@ -21,6 +24,7 @@ const Income = props => {
         source: '',
         income: ''
     });
+    useEffect(()=>props.getBusinessIncome(props.token));
     const handleIncomeInput = (value,name) => {
         setBusinessIncome({
             ...businessIncome,
@@ -28,11 +32,11 @@ const Income = props => {
         })
     }
     const handleIncome = () => {
-        props.addBusinessIncome(businessIncome);
         setBusinessIncome({
             source: '',
             income: ''
         })
+        props.addBusinessIncome(businessIncome,props.token);
     }
     const incomeList = props.businessIncome.map(income=>{
         return (

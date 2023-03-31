@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {StyleSheet,View,Text,TextInput,TouchableOpacity} from 'react-native';
 import * as actionCreators from '../../../Redux/./actionCreators';
 import {connect} from 'react-redux';
@@ -6,14 +6,18 @@ import ExpenseList from './expenseList';
 
 const mapStateToProps = state => {
     return {
-        businessExpense: state.businessExpense
+        businessExpense: state.businessExpense,
+        token: state.token
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        addBusinessExpense: businessExpense => 
-                            dispatch(actionCreators
-                                .addBusinessExpense(businessExpense))
+        addBusinessExpense: (businessExpense,token) => 
+                             dispatch(actionCreators
+                             .addBusinessExpense(businessExpense,token)),
+        getBusinessExpense: token => 
+                             dispatch(actionCreators
+                             .getBusinessExpense(token))
     }
 }
 const Expense = props => {
@@ -21,6 +25,7 @@ const Expense = props => {
         source: '',
         expense: ''
     });
+    useEffect(()=>props.getBusinessExpense(props.token));
     const handleExpenseInput = (value,name) => {
         setBusinessExpense({
             ...businessExpense,
@@ -28,11 +33,11 @@ const Expense = props => {
         })
     }
     const handleExpense = () => {
-        props.addBusinessExpense(businessExpense);
         setBusinessExpense({
             source: '',
             expense: ''
-        })
+        });
+        props.addBusinessExpense(businessExpense,props.token);
     }
     const expenseList = props.businessExpense.map(expense=>{
         return (

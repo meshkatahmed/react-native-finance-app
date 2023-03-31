@@ -6,7 +6,8 @@ const initState = {
     jobIncome: [],
     jobExpense: [],
     isAuth: false,
-    token: null
+    token: null,
+    userId: null
 }
 export const rootReducer = (state=initState,action) => {
     switch(action.type) {
@@ -14,24 +15,25 @@ export const rootReducer = (state=initState,action) => {
             return {
                 ...state,
                 isAuth: true,
-                token: action.payload
+                token: action.payload1,
+                userId: action.payload2
             }
-        case actionTypes.ADD_BUSINESS_INCOME:
+        case actionTypes.LOAD_BUSINESS_INCOME:
             return {
                 ...state,
                 businessIncome: state.businessIncome.concat(action.payload)
             }
-        case actionTypes.ADD_BUSINESS_EXPENSE:
+        case actionTypes.LOAD_BUSINESS_EXPENSE:
             return {
                 ...state,
                 businessExpense: state.businessExpense.concat(action.payload)
             }
-        case actionTypes.ADD_JOB_INCOME:
+        case actionTypes.LOAD_JOB_INCOME:
             return {
                 ...state,
                 jobIncome: state.jobIncome.concat(action.payload)
             }
-        case actionTypes.ADD_JOB_EXPENSE:
+        case actionTypes.LOAD_JOB_EXPENSE:
             return {
                 ...state,
                 jobExpense: state.jobExpense.concat(action.payload)

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {StyleSheet,View,Text,TextInput,TouchableOpacity} from 'react-native';
 import * as actionCreators from '../../../Redux/actionCreators';
 import {connect} from 'react-redux';
@@ -6,14 +6,18 @@ import ExpenseList from './expenseList';
 
 const mapStateToProps = state => {
     return {
-        jobExpense: state.jobExpense
+        jobExpense: state.jobExpense,
+        token: state.token
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        addJobExpense: jobExpense => 
-                            dispatch(actionCreators
-                                .addJobExpense(jobExpense))
+        addJobExpense: (jobExpense,token) => 
+                        dispatch(actionCreators
+                        .addJobExpense(jobExpense,token)),
+        getJobExpense: token => 
+                        dispatch(actionCreators
+                        .getJobExpense(token))
     }
 }
 const Expense = props => {
@@ -21,6 +25,7 @@ const Expense = props => {
         source: '',
         expense: ''
     });
+    useEffect(()=>props.getJobExpense(props.token));
     const handleExpenseInput = (value,name) => {
         setJobExpense({
             ...jobExpense,
@@ -28,7 +33,7 @@ const Expense = props => {
         })
     }
     const handleExpense = () => {
-        props.addJobExpense(jobExpense);
+        props.addJobExpense(jobExpense,props.token);
         setJobExpense({
             source: '',
             expense: ''

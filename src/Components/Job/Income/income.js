@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {StyleSheet,View,Text,TextInput,TouchableOpacity} from 'react-native';
 import * as actionCreators from '../../../Redux/actionCreators';
 import {connect} from 'react-redux';
@@ -6,14 +6,18 @@ import IncomeList from './incomeList';
 
 const mapStateToProps = state => {
     return {
-        jobIncome: state.jobIncome
+        jobIncome: state.jobIncome,
+        token: state.token
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        addJobIncome: jobIncome => 
-                            dispatch(actionCreators
-                                .addJobIncome(jobIncome))
+        addJobIncome: (jobIncome,token) => 
+                        dispatch(actionCreators
+                        .addJobIncome(jobIncome,token)),
+        getJobIncome: token => 
+                       dispatch(actionCreators
+                        .getJobIncome(token))
     }
 }
 const Income = props => {
@@ -21,6 +25,7 @@ const Income = props => {
         source: '',
         income: ''
     });
+    useEffect(()=>props.getJobIncome(props.token));
     const handleIncomeInput = (value,name) => {
         setJobIncome({
             ...jobIncome,
@@ -28,7 +33,7 @@ const Income = props => {
         })
     }
     const handleIncome = () => {
-        props.addJobIncome(jobIncome);
+        props.addJobIncome(jobIncome,props.token);
         setJobIncome({
             source: '',
             income: ''
