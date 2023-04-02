@@ -8,10 +8,10 @@ export const authUser = (token,userId) => {
         payload2: userId
     }
 }
-export const loadBusinessIncome = value => {
+export const loadBusinessIncome = values => {
     return {
         type: actionTypes.LOAD_BUSINESS_INCOME,
-        payload: value
+        payload: values
     }
 }
 export const tryAuth = (email,password,mode) => dispatch => {
@@ -57,9 +57,15 @@ export const getBusinessIncome = token => dispatch => {
     fetch(`https://react-native-finance-app-default-rtdb.firebaseio.com/BusinessIncome.json?auth=${token}`)
     .catch(error=> {
         console.log(error);
-        alert('Something went wrong');
+        alert('Something went wrong!');
     }).then(response=>response.json())
-    .then(data=>dispatch(loadBusinessIncome(data)));
+    .then(data => {
+        const values = [];
+        for (let i in data) {
+            values.push(data[i]);
+        }
+        dispatch(loadBusinessIncome(values));
+    });
 }
 export const addBusinessExpense = (businessExpense,token) => {
     fetch(`https://react-native-finance-app-default-rtdb.firebaseio.com/BusinessExpense.json?auth=${token}`,{
