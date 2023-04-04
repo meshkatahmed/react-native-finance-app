@@ -24,6 +24,7 @@ const Income = props => {
         source: '',
         income: ''
     });
+    const [newIncomeEntry,setNewIncomeEntry] = useState([]);
     useEffect(()=>props.getBusinessIncome(props.token),[]);
     const handleIncomeInput = (value,name) => {
         setBusinessIncome({
@@ -32,14 +33,14 @@ const Income = props => {
         })
     }
     const handleIncome = () => {
+        setNewIncomeEntry([...newIncomeEntry,<IncomeList income={businessIncome}/>]);
         setBusinessIncome({
             source: '',
             income: ''
-        })
+        });
         props.addBusinessIncome(businessIncome,props.token);
     }
     const incomeList = props.businessIncome.map(income=>{
-        console.log(income);
         return (
             <IncomeList income={income} key={Math.random()}/>
         );
@@ -67,6 +68,7 @@ const Income = props => {
             </View>
             <View>
                 {incomeList}
+                {newIncomeEntry}
             </View>
         </View>
     );

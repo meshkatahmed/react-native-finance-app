@@ -25,7 +25,8 @@ const Expense = props => {
         source: '',
         expense: ''
     });
-    useEffect(()=>props.getBusinessExpense(props.token));
+    const [newExpenseEntry,setNewExpenseEntry] = useState([]);
+    useEffect(()=>props.getBusinessExpense(props.token),[]);
     const handleExpenseInput = (value,name) => {
         setBusinessExpense({
             ...businessExpense,
@@ -33,6 +34,7 @@ const Expense = props => {
         })
     }
     const handleExpense = () => {
+        setNewExpenseEntry([...newExpenseEntry,<ExpenseList expense={businessExpense}/>]);
         setBusinessExpense({
             source: '',
             expense: ''
@@ -67,6 +69,7 @@ const Expense = props => {
             </View>
             <View>
                 {expenseList}
+                {newExpenseEntry}
             </View>
         </View>
     );

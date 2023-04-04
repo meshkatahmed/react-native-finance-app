@@ -14,6 +14,24 @@ export const loadBusinessIncome = values => {
         payload: values
     }
 }
+export const loadBusinessExpense = values => {
+    return {
+        type: actionTypes.LOAD_BUSINESS_EXPENSE,
+        payload: values
+    }
+}
+export const loadJobIncome = values => {
+    return {
+        type: actionTypes.LOAD_JOB_INCOME,
+        payload: values
+    }
+}
+export const loadJobExpense = values => {
+    return {
+        type: actionTypes.LOAD_JOB_EXPENSE,
+        payload: values
+    }
+}
 export const tryAuth = (email,password,mode) => dispatch => {
     let url = '';
     const API_KEY = 'AIzaSyBtFUghKJYwc_Fhw3odjT8zjzpLFtPhj4U';
@@ -61,9 +79,8 @@ export const getBusinessIncome = token => dispatch => {
     }).then(response=>response.json())
     .then(data => {
         const values = [];
-        for (let i in data) {
+        for (let i in data)
             values.push(data[i]);
-        }
         dispatch(loadBusinessIncome(values));
     });
 }
@@ -81,7 +98,12 @@ export const getBusinessExpense = token => dispatch => {
         console.log(error);
         alert('Something went wrong');
     }).then(response=>response.json())
-    .then(data=>console.log(data));
+    .then(data=>{
+        const values = [];
+        for (let i in data)
+            values.push(data[i]);
+        dispatch(loadBusinessExpense(values));
+    });
 }
 export const addJobIncome = (jobIncome,token) => {
     fetch(`https://react-native-finance-app-default-rtdb.firebaseio.com/JobIncome.json?auth=${token}`,{
@@ -97,7 +119,12 @@ export const getJobIncome = token => dispatch => {
         console.log(error);
         alert('Something went wrong');
     }).then(response=>response.json())
-    .then(data=>console.log(data));
+    .then(data=>{
+        const values = [];
+        for (let i in data) 
+            values.push(data[i]);
+        dispatch(loadJobIncome(values));
+    });
 }
 export const addJobExpense = (jobExpense,token) => {
     fetch(`https://react-native-finance-app-default-rtdb.firebaseio.com/JobExpense.json?auth=${token}`,{
@@ -113,5 +140,10 @@ export const getJobExpense = token => dispatch => {
         console.log(error);
         alert('Something went wrong');
     }).then(response=>response.json())
-    .then(data=>console.log(data));
+    .then(data=>{
+        const values = [];
+        for (let i in data)
+            values.push(data[i]);
+        dispatch(loadJobExpense(values));
+    });
 }

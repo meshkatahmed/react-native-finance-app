@@ -25,7 +25,8 @@ const Expense = props => {
         source: '',
         expense: ''
     });
-    useEffect(()=>props.getJobExpense(props.token));
+    const [newExpenseEntry,setNewExpenseEntry] = useState([]);
+    useEffect(()=>props.getJobExpense(props.token),[]);
     const handleExpenseInput = (value,name) => {
         setJobExpense({
             ...jobExpense,
@@ -33,11 +34,13 @@ const Expense = props => {
         })
     }
     const handleExpense = () => {
-        props.addJobExpense(jobExpense,props.token);
+        setNewExpenseEntry([...newExpenseEntry,<ExpenseList expense={jobExpense}/>]);
+        console.log(newExpenseEntry);
         setJobExpense({
             source: '',
             expense: ''
         })
+        props.addJobExpense(jobExpense,props.token);
     }
     const expenseList = props.jobExpense.map(expense=>{
         return (
@@ -67,6 +70,7 @@ const Expense = props => {
             </View>
             <View>
                 {expenseList}
+                {newExpenseEntry}
             </View>
         </View>
     );
